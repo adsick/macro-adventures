@@ -1,4 +1,4 @@
-## введение в (декларативные) макросы
+## введение в декларативные макросы
 
 синтаксис декларативного макроса
 ```
@@ -94,19 +94,19 @@ $($v:expr),*
 ## основные приёмы
 * возврат блока кода, возвращающего значение
 * вложенные правила ("internal rules") - ветки формата (@rule_name ...rest of the pattern)
-* итеративный парсинг с помощью паттерна "TT muncher"
+* итеративный парсинг с помощью паттерна "TT muncher" (см. маленькую книгу макросов)
 имееет вид ```( $current:expr, ($tail:tt),*)=>{ println!("{}", stringify!($current)); macro_name!(tail); }```
-* использование $(,)? на конце паттерна для поддержки trailing commas (```vec![1, 2, 3,]```)
+* использование ```$(,)?``` на конце паттерна для поддержки trailing commas (```vec![1, 2, 3,]```)
 
 
 ## частые ошибки
 * забытый знак $
 * левая-правая ассоциативность вызовов
-* неучёт жадности повторений
+* неучёт жадности повторений: вот такое не сработает ```$($v:expr),*, $v:expr``` (а наоборот - сработает, так мы костыляем tail рекурсию)
 
 ## ссылки
-* доклад Алексея Кладова https://www.youtube.com/watch?v=L4wgbmmMXTM&t=3488s 
-* статья в the rust programming language https://doc.rust-lang.org/book/ch19-06-macros.html
-* статья в the rust reference https://doc.rust-lang.org/reference/macros-by-example.html
-* статья на logrocket (заметил несколько ошибок но в целом ок) https://blog.logrocket.com/macros-in-rust-a-tutorial-with-examples/
-* "маленькая книга макросов" (the little book of rust macros) https://veykril.github.io/tlborm/ 
+* доклад Алексея Кладова: https://www.youtube.com/watch?v=L4wgbmmMXTM&t=3488s 
+* статья в the rust programming language: https://doc.rust-lang.org/book/ch19-06-macros.html
+* статья в the rust reference: https://doc.rust-lang.org/reference/macros-by-example.html
+* статья на logrocket, заметил там несколько ошибок но в целом ок: https://blog.logrocket.com/macros-in-rust-a-tutorial-with-examples/
+* "маленькая книга макросов" (the little book of rust macros): https://veykril.github.io/tlborm/ 
